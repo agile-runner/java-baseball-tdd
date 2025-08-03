@@ -9,11 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UmpireTest {
 
     private Umpire umpire;
-
-    public UmpireTest(Umpire umpire) {
-        this.umpire = umpire;
-    }
-
+    
     @BeforeEach
     void setUp() {
         umpire = new Umpire();
