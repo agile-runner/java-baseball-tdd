@@ -1,8 +1,16 @@
 package study;
 
+import java.util.stream.IntStream;
+
 public class Umpire {
 
     public int strike(int[] userInputs, int[] targets) {
-        return -1;
+        if (userInputs.length != targets.length) {
+            throw new RuntimeException();
+        }
+
+        return (int) IntStream.range(0, userInputs.length)
+                .filter(i -> userInputs[i] == targets[i])
+                .count();
     }
 }
