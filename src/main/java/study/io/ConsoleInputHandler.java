@@ -23,6 +23,10 @@ public class ConsoleInputHandler implements InputHandler {
             inputs[i] = characterFromUserInput - '0';
         }
 
+        if ((inputs[0] == inputs[1]) || (inputs[0] == inputs[2]) || (inputs[1] == inputs[2])) {
+            throw new IllegalArgumentException("각 자리 숫자는 중복될 수 없습니다.");
+        }
+
         return inputs;
     }
 
@@ -40,6 +44,10 @@ public class ConsoleInputHandler implements InputHandler {
                 throw new IllegalArgumentException("사용자 입력은 숫자만 가능합니다.");
             }
             inputs[i] = characterFromUserInput - '0';
+        }
+
+        if ((inputs[0] == inputs[1]) || (inputs[0] == inputs[2]) || (inputs[1] == inputs[2])) {
+            throw new IllegalArgumentException("각 자리 숫자는 중복될 수 없습니다.");
         }
 
         return inputs;
