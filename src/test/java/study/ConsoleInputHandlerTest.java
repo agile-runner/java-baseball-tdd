@@ -80,4 +80,18 @@ class ConsoleInputHandlerTest {
                 .hasMessage("사용자 입력은 숫자만 가능합니다.");
     }
 
+    @DisplayName("각 자리의 숫자는 중복될 수 없다.")
+    @Test
+    void getNumberFromUser_duplication() {
+        // given
+        String input = "112\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        scanner = new Scanner(System.in);
+
+        // when & then
+        assertThatThrownBy(() -> inputHandler.getDigitsFromUser(scanner))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("각 자리 숫자는 중복될 수 없습니다.");
+    }
+
 }
