@@ -23,7 +23,7 @@ public class UmpireTest {
         int[] targets = {4, 5, 6};
 
         // when
-        int strikeCount = umpire.strike(userInputs, targets);
+        int strikeCount = umpire.inquireStrikeCount(userInputs, targets);
 
         // then
         assertThat(strikeCount).isEqualTo(0);
@@ -37,7 +37,7 @@ public class UmpireTest {
         int[] targets = {1, 5, 6};
 
         // when
-        int strikeCount = umpire.strike(userInputs, targets);
+        int strikeCount = umpire.inquireStrikeCount(userInputs, targets);
 
         // then
         assertThat(strikeCount).isEqualTo(1);
@@ -51,7 +51,7 @@ public class UmpireTest {
         int[] targets = {1, 2, 6};
 
         // when
-        int strikeCount = umpire.strike(userInputs, targets);
+        int strikeCount = umpire.inquireStrikeCount(userInputs, targets);
 
         // then
         assertThat(strikeCount).isEqualTo(2);
@@ -65,7 +65,7 @@ public class UmpireTest {
         int[] targets = {1, 2, 3};
 
         // when
-        int strikeCount = umpire.strike(userInputs, targets);
+        int strikeCount = umpire.inquireStrikeCount(userInputs, targets);
 
         // then
         assertThat(strikeCount).isEqualTo(3);
@@ -79,7 +79,7 @@ public class UmpireTest {
         int[] targets = {1, 2, 3};
 
         // when
-        int ballCount = umpire.ball(userInputs, targets);
+        int ballCount = umpire.inquireBallCount(userInputs, targets);
 
         // then
         assertThat(ballCount).isEqualTo(0);
@@ -93,7 +93,7 @@ public class UmpireTest {
         int[] targets = {1, 2, 3};
 
         // when
-        int ballCount = umpire.ball(userInputs, targets);
+        int ballCount = umpire.inquireBallCount(userInputs, targets);
 
         // then
         assertThat(ballCount).isEqualTo(0);
@@ -107,7 +107,7 @@ public class UmpireTest {
         int[] targets = {1, 2, 3};
 
         // when
-        int ballCount = umpire.ball(userInputs, targets);
+        int ballCount = umpire.inquireBallCount(userInputs, targets);
 
         // then
         assertThat(ballCount).isEqualTo(1);
@@ -121,7 +121,7 @@ public class UmpireTest {
         int[] targets = {1, 2, 3};
 
         // when
-        int ballCount = umpire.ball(userInputs, targets);
+        int ballCount = umpire.inquireBallCount(userInputs, targets);
 
         // then
         assertThat(ballCount).isEqualTo(2);
@@ -135,7 +135,7 @@ public class UmpireTest {
         int[] targets = {1, 2, 3};
 
         // when
-        int ballCount = umpire.ball(userInputs, targets);
+        int ballCount = umpire.inquireBallCount(userInputs, targets);
 
         // then
         assertThat(ballCount).isEqualTo(3);
