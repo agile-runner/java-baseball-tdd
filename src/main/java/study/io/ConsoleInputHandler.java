@@ -53,4 +53,19 @@ public class ConsoleInputHandler implements InputHandler {
         return inputs;
     }
 
+    @Override
+    public int getSelectionFromUser() {
+        String userInput = SCANNER.nextLine();
+
+        if (userInput.length() != 1) {
+            throw new IllegalArgumentException("사용자 입력은 한 자리만 가능합니다.");
+        }
+
+        char characterFromUserInput = userInput.charAt(0);
+        if (!Character.isDigit(characterFromUserInput)) {
+            throw new IllegalArgumentException("사용자 입력은 숫자만 가능합니다.");
+        }
+
+        return characterFromUserInput - '0';
+    }
 }
