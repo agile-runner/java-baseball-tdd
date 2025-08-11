@@ -7,4 +7,5 @@ public interface InputHandler {
     int[] getDigitsFromUser();
     int[] getDigitsFromUser(Scanner scanner);
 
+    int getSelectionFromUser();
 }
