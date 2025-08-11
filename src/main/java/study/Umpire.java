@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 
 public class Umpire {
 
-    public int strike(int[] userInputs, int[] targets) {
+    public int inquireStrikeCount(int[] userInputs, int[] targets) {
         if (userInputs.length != targets.length) {
             throw new RuntimeException();
         }
@@ -17,7 +17,7 @@ public class Umpire {
                 .count();
     }
 
-    public int ball(int[] userInputs, int[] targets) {
+    public int inquireBallCount(int[] userInputs, int[] targets) {
         Set<Integer> userInputDigits = new HashSet<>();
         Set<Integer> targetDigits = new HashSet<>();
 
@@ -25,7 +25,7 @@ public class Umpire {
         Arrays.stream(targets).forEach(targetDigits::add);
 
         targetDigits.retainAll(userInputDigits);
-        return targetDigits.size() - strike(userInputs, targets);
+        return targetDigits.size() - inquireStrikeCount(userInputs, targets);
     }
 
 }
