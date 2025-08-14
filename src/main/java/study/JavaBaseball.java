@@ -10,6 +10,10 @@ public class JavaBaseball {
     public static final int GAME_RESTART = 1;
     public static final int GAME_END = 2;
 
+    private int[] targets;
+    private int ballCount;
+    private int strikeCount;
+
     private InputHandler inputHandler;
     private OutputHandler outputHandler;
     private Computer computer;
@@ -21,37 +25,59 @@ public class JavaBaseball {
         this.outputHandler = new ConsoleOutputHandler();
         this.computer = new Computer();
         this.umpire = new Umpire();
-        this.gameStatus = GameStatus.END;
     }
 
     public void run() {
-        gameStatus = GameStatus.IN_PROGRESS;
-        int[] targets = computer.generateRandomNumber();
+        initialize();
 
-        while (gameStatus == GameStatus.IN_PROGRESS) {
-            outputHandler.showMessageForUserInput();
-            int[] userInputs = inputHandler.getDigitsFromUser();
+        while (isInProgress()) {
+            int[] pitch = askUserForDigits();
+            requestUmpireCallFor(pitch);
 
-            int ballCount = umpire.inquireBallCount(userInputs, targets);
-            int strikeCount = umpire.inquireStrikeCount(userInputs, targets);
-
-            outputHandler.showUmpireCall(ballCount, strikeCount);
-
-            if (strikeCount == TARGET_COUNT) {
-                outputHandler.showGameWinningMessage();
-                outputHandler.showRestartOrQuitOptions();
-
-                int selection = inputHandler.getSelectionFromUser();
-                if (selection == GAME_END) {
-                    gameStatus = GameStatus.END;
-                    continue;
-                }
-                if (selection == GAME_RESTART) {
-                    targets = computer.generateRandomNumber();
-                    continue;
-                }
-                throw new IllegalArgumentException("사용자 입력은 1과 2만 가능합니다.");
-            }
+            checkAndProcessGameWin();
         }
+    }
+
+    private void initialize() {
+        gameStatus = GameStatus.IN_PROGRESS;
+        targets = computer.generateRandomNumber();
+    }
+
+    private boolean isInProgress() {
+        return gameStatus == GameStatus.IN_PROGRESS;
+    }
+
+    private int[] askUserForDigits() {
+        outputHandler.showMessageForUserInput();
+        return inputHandler.getDigitsFromUser();
+    }
+
+    private void requestUmpireCallFor(int[] guess) {
+        ballCount = umpire.inquireBallCount(guess, targets);
+        strikeCount = umpire.inquireStrikeCount(guess, targets);
+
+        outputHandler.showUmpireCall(ballCount, strikeCount);
+    }
+
+    private void checkAndProcessGameWin() {
+        if (strikeCount == TARGET_COUNT) {
+            outputHandler.showGameWinningMessage();
+            outputHandler.showRestartOrQuitOptions();
+            handleRestartOrQuit();
+        }
+    }
+
+    private void handleRestartOrQuit() {
+        int selection = inputHandler.getSelectionFromUser();
+
+        if (selection == GAME_END) {
+            gameStatus = GameStatus.END;
+            return;
+        }
+        if (selection == GAME_RESTART) {
+            targets = computer.generateRandomNumber();
+            return;
+        }
+        throw new IllegalArgumentException("사용자 입력은 1과 2만 가능합니다.");
     }
 }
