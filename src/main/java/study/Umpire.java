@@ -1,5 +1,7 @@
 package study;
 
+import study.exception.GameException;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,10 +10,6 @@ import java.util.stream.IntStream;
 public class Umpire {
 
     public int inquireStrikeCount(int[] userInputs, int[] targets) {
-        if (userInputs.length != targets.length) {
-            throw new RuntimeException();
-        }
-
         return (int) IntStream.range(0, userInputs.length)
                 .filter(i -> userInputs[i] == targets[i])
                 .count();
