@@ -10,6 +10,7 @@ public class JavaBaseball {
     public static final int GAME_RESTART = 1;
     public static final int GAME_END = 2;
 
+    // TODO: 전역변수가 최선의 선택일까? 다시 한 번 확인하기
     private int[] targets;
     private int ballCount;
     private int strikeCount;
