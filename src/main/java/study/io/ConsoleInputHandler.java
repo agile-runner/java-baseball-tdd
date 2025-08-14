@@ -3,7 +3,6 @@ package study.io;
 import java.util.Scanner;
 
 public class ConsoleInputHandler implements InputHandler {
-
     private static final int BASE_LENGTH = 3;
     private static final Scanner SCANNER = new Scanner(System.in);
 
@@ -13,15 +12,8 @@ public class ConsoleInputHandler implements InputHandler {
         if (userInput.length() != BASE_LENGTH) {
             throw new IllegalArgumentException("사용자 입력은 세 자리만 가능합니다.");
         }
-
-        int[] inputs = new int[userInput.length()];
-        for (int i = 0; i < userInput.length(); i++) {
-            char characterFromUserInput = userInput.charAt(i);
-            if (!Character.isDigit(characterFromUserInput)) {
-                throw new IllegalArgumentException("사용자 입력은 숫자만 가능합니다.");
-            }
-            inputs[i] = characterFromUserInput - '0';
-        }
+        
+        int[] inputs = userInput.chars().map(unicode -> getIntegerFrom((char) unicode)).toArray();
 
         if ((inputs[0] == inputs[1]) || (inputs[0] == inputs[2]) || (inputs[1] == inputs[2])) {
             throw new IllegalArgumentException("각 자리 숫자는 중복될 수 없습니다.");
@@ -37,14 +29,7 @@ public class ConsoleInputHandler implements InputHandler {
             throw new IllegalArgumentException("사용자 입력은 세 자리만 가능합니다.");
         }
 
-        int[] inputs = new int[userInput.length()];
-        for (int i = 0; i < userInput.length(); i++) {
-            char characterFromUserInput = userInput.charAt(i);
-            if (!Character.isDigit(characterFromUserInput)) {
-                throw new IllegalArgumentException("사용자 입력은 숫자만 가능합니다.");
-            }
-            inputs[i] = characterFromUserInput - '0';
-        }
+        int[] inputs = userInput.chars().map(unicode -> getIntegerFrom((char) unicode)).toArray();
 
         if ((inputs[0] == inputs[1]) || (inputs[0] == inputs[2]) || (inputs[1] == inputs[2])) {
             throw new IllegalArgumentException("각 자리 숫자는 중복될 수 없습니다.");
@@ -67,5 +52,13 @@ public class ConsoleInputHandler implements InputHandler {
         }
 
         return characterFromUserInput - '0';
+    }
+
+    private static int getIntegerFrom(char UserInputCharacter) {
+        if (!Character.isDigit(UserInputCharacter)) {
+            throw new IllegalArgumentException("사용자 입력은 숫자만 가능합니다.");
+        }
+
+        return UserInputCharacter - '0';
     }
 }
