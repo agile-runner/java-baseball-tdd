@@ -3,8 +3,6 @@ package study.io;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import study.io.ConsoleInputHandler;
-import study.io.InputHandler;
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
@@ -13,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ConsoleInputHandlerTest {
-
     private Scanner scanner;
     private InputHandler inputHandler;
 
@@ -93,5 +90,4 @@ class ConsoleInputHandlerTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("각 자리 숫자는 중복될 수 없습니다.");
     }
-
 }
