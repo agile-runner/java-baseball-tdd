@@ -79,6 +79,6 @@ public class JavaBaseball {
             targets = computer.generateRandomNumber();
             return;
         }
-        throw new IllegalArgumentException("사용자 입력은 1과 2만 가능합니다.");
+        throw new IllegalArgumentException("사용자는 주어진 옵션만 선택 가능합니다.");
     }
 }
