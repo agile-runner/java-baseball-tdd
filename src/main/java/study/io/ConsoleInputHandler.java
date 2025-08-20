@@ -1,6 +1,10 @@
 package study.io;
 
+import study.exception.GameException;
+
 import java.util.Scanner;
+
+import static study.exception.ErrorCode.*;
 
 public class ConsoleInputHandler implements InputHandler {
     private static final int BASE_LENGTH = 3;
@@ -10,13 +14,13 @@ public class ConsoleInputHandler implements InputHandler {
     public int[] getDigitsFromUser() {
         String userInput = SCANNER.nextLine();
         if (userInput.length() != BASE_LENGTH) {
-            throw new IllegalArgumentException("사용자 입력은 세 자리만 가능합니다.");
+            throw new GameException(USER_INPUT_REQUIRED_THREE_DIGIT);
         }
         
         int[] inputs = userInput.chars().map(unicode -> getIntegerFrom((char) unicode)).toArray();
 
         if ((inputs[0] == inputs[1]) || (inputs[0] == inputs[2]) || (inputs[1] == inputs[2])) {
-            throw new IllegalArgumentException("각 자리 숫자는 중복될 수 없습니다.");
+            throw new GameException(EACH_DIGIT_REQUIRED_UNIQUE);
         }
 
         return inputs;
@@ -26,13 +30,13 @@ public class ConsoleInputHandler implements InputHandler {
     public int[] getDigitsFromUser(Scanner scanner) {
         String userInput = scanner.nextLine();
         if (userInput.length() != BASE_LENGTH) {
-            throw new IllegalArgumentException("사용자 입력은 세 자리만 가능합니다.");
+            throw new GameException(USER_INPUT_REQUIRED_THREE_DIGIT);
         }
 
         int[] inputs = userInput.chars().map(unicode -> getIntegerFrom((char) unicode)).toArray();
 
         if ((inputs[0] == inputs[1]) || (inputs[0] == inputs[2]) || (inputs[1] == inputs[2])) {
-            throw new IllegalArgumentException("각 자리 숫자는 중복될 수 없습니다.");
+            throw new GameException(EACH_DIGIT_REQUIRED_UNIQUE);
         }
 
         return inputs;
@@ -43,12 +47,12 @@ public class ConsoleInputHandler implements InputHandler {
         String userInput = SCANNER.nextLine();
 
         if (userInput.length() != 1) {
-            throw new IllegalArgumentException("사용자 입력은 한 자리만 가능합니다.");
+            throw new GameException(SELECTION_REQUIRED_SINGLE_DIGIT);
         }
 
         char characterFromUserInput = userInput.charAt(0);
         if (!Character.isDigit(characterFromUserInput)) {
-            throw new IllegalArgumentException("사용자 입력은 숫자만 가능합니다.");
+            throw new GameException(USER_INPUT_REQUIRED_NUMERIC_TYPE);
         }
 
         return characterFromUserInput - '0';
@@ -56,7 +60,7 @@ public class ConsoleInputHandler implements InputHandler {
 
     private static int getIntegerFrom(char UserInputCharacter) {
         if (!Character.isDigit(UserInputCharacter)) {
-            throw new IllegalArgumentException("사용자 입력은 숫자만 가능합니다.");
+            throw new GameException(USER_INPUT_REQUIRED_NUMERIC_TYPE);
         }
 
         return UserInputCharacter - '0';
