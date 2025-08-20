@@ -3,6 +3,7 @@ package study.io;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import study.exception.GameException;
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
@@ -45,7 +46,7 @@ class ConsoleInputHandlerTest {
 
         // when & then
         assertThatThrownBy(() -> inputHandler.getDigitsFromUser(scanner))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(GameException.class)
                 .hasMessage("사용자 입력은 세 자리만 가능합니다.");
     }
 
@@ -59,7 +60,7 @@ class ConsoleInputHandlerTest {
 
         // when & then
         assertThatThrownBy(() -> inputHandler.getDigitsFromUser(scanner))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(GameException.class)
                 .hasMessage("사용자 입력은 세 자리만 가능합니다.");
     }
 
@@ -73,7 +74,7 @@ class ConsoleInputHandlerTest {
 
         // when & then
         assertThatThrownBy(() -> inputHandler.getDigitsFromUser(scanner))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(GameException.class)
                 .hasMessage("사용자 입력은 숫자만 가능합니다.");
     }
 
@@ -87,7 +88,7 @@ class ConsoleInputHandlerTest {
 
         // when & then
         assertThatThrownBy(() -> inputHandler.getDigitsFromUser(scanner))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(GameException.class)
                 .hasMessage("각 자리 숫자는 중복될 수 없습니다.");
     }
 }
