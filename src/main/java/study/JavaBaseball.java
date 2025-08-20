@@ -1,19 +1,19 @@
 package study;
 
+import study.exception.GameException;
 import study.io.ConsoleInputHandler;
 import study.io.ConsoleOutputHandler;
 import study.io.InputHandler;
 import study.io.OutputHandler;
+
+import static study.exception.ErrorCode.SELECTION_INVALID_OPTION;
 
 public class JavaBaseball {
     public static final int TARGET_COUNT = 3;
     public static final int GAME_RESTART = 1;
     public static final int GAME_END = 2;
 
-    // TODO: 전역변수가 최선의 선택일까? 다시 한 번 확인하기
     private int[] targets;
-    private int ballCount;
-    private int strikeCount;
 
     private InputHandler inputHandler;
     private OutputHandler outputHandler;
@@ -33,9 +33,9 @@ public class JavaBaseball {
 
         while (isInProgress()) {
             int[] pitch = askUserForDigits();
-            requestUmpireCallFor(pitch);
+            int strikeCount = requestUmpireCallFor(pitch);
 
-            checkAndProcessGameWin();
+            checkAndProcessGameWin(strikeCount);
         }
     }
 
@@ -53,14 +53,15 @@ public class JavaBaseball {
         return inputHandler.getDigitsFromUser();
     }
 
-    private void requestUmpireCallFor(int[] guess) {
-        ballCount = umpire.inquireBallCount(guess, targets);
-        strikeCount = umpire.inquireStrikeCount(guess, targets);
+    private int requestUmpireCallFor(int[] guess) {
+        int ballCount = umpire.inquireBallCount(guess, targets);
+        int strikeCount = umpire.inquireStrikeCount(guess, targets);
 
         outputHandler.showUmpireCall(ballCount, strikeCount);
+        return strikeCount;
     }
 
-    private void checkAndProcessGameWin() {
+    private void checkAndProcessGameWin(int strikeCount) {
         if (strikeCount == TARGET_COUNT) {
             outputHandler.showGameWinningMessage();
             outputHandler.showRestartOrQuitOptions();
@@ -79,6 +80,6 @@ public class JavaBaseball {
             targets = computer.generateRandomNumber();
             return;
         }
-        throw new IllegalArgumentException("사용자는 주어진 옵션만 선택 가능합니다.");
+        throw new GameException(SELECTION_INVALID_OPTION);
     }
 }
