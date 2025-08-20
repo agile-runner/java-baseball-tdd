@@ -82,4 +82,19 @@ public class JavaBaseball {
         }
         throw new GameException(SELECTION_INVALID_OPTION);
     }
+
+    /**
+     * 테스트용 메서드
+     */
+    public void handleRestartOrQuit(int selection) {
+        if (selection == GAME_END) {
+            gameStatus = GameStatus.END;
+            return;
+        }
+        if (selection == GAME_RESTART) {
+            targets = computer.generateRandomNumber();
+            return;
+        }
+        throw new GameException(SELECTION_INVALID_OPTION);
+    }
 }
